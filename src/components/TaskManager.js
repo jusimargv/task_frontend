@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importa ícones de edição e exclusão
 
-const apiUrl = 'http://127.0.0.1:5000/tarefas';
+// Atualizando a URL para o backend hospedado no Render
+const apiUrl = 'https://task-backend-eyp4.onrender.com/tarefas';
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
   const [formData, setFormData] = useState({ nome: '', custo: '', data_limite: '' });
   const [isEditing, setIsEditing] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
+  const [error, setError] = useState(null); // Adicionando estado para erro
 
   useEffect(() => {
     loadTasks();
@@ -20,8 +22,10 @@ const TaskManager = () => {
     try {
       const response = await axios.get(apiUrl);
       setTasks(response.data);
+      setError(null); // Limpar erros caso a requisição tenha sucesso
     } catch (error) {
       console.error("Erro ao carregar as tarefas", error);
+      setError("Erro ao carregar as tarefas. Tente novamente mais tarde.");
     }
   };
 
@@ -44,6 +48,7 @@ const TaskManager = () => {
       loadTasks();
     } catch (error) {
       console.error("Erro ao salvar a tarefa", error);
+      setError("Erro ao salvar a tarefa. Tente novamente.");
     }
   };
 
@@ -89,6 +94,7 @@ const TaskManager = () => {
         loadTasks();
       } catch (error) {
         console.error("Erro ao excluir a tarefa", error);
+        setError("Erro ao excluir a tarefa. Tente novamente.");
       }
     }
   };
@@ -103,6 +109,9 @@ const TaskManager = () => {
   return (
     <div className="task-manager">
       <h1>Lista de Tarefas</h1>
+
+      {/* Exibe mensagem de erro, se houver */}
+      {error && <div className="error-message">{error}</div>}
 
       {/* Formulário de inclusão/edição */}
       <form onSubmit={handleSubmit} className="task-form">
