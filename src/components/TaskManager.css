@@ -1,0 +1,45 @@
+/* src/components/TaskManager.css */
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .task-form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .task-form input,
+  .task-form button {
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .task-list {
+    margin-top: 20px;
+  }
+  
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .task-item.highlight {
+    background-color: #ffef82;
+  }
+  
+  .task-actions button {
+    margin-left: 5px;
+  }
+  
